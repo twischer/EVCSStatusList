@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script>
+	const chargeAvailURL = "https://api.tomtom.com/search/2/chargingAvailability.json";
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const key = urlParams.get('key')
+	const chargingAvailabilityIDs = urlParams.get('chargingAvailability').split(",")
+
+	const request = chargeAvailURL + "?key=" + key + "&chargingAvailability="
+	$.each(chargingAvailabilityIDs, function( index, id ) {
+		const street = "test"
+		$.getJSON(request+id, function(result) {
+			var connector = result.connectors[0];
+				$("div").append("<tr><td>"+street+"</td><td>" + connector.availability.current.available+"/"+connector.total + "</td><tr>");
+		});
+	});
+</script>
+</head>
+<body>
+
+<div></div>
+
+</body>
+</html>
+
