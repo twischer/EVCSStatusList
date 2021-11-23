@@ -11,12 +11,12 @@ Usage
 	1. Open the URL
 	1. Copy the chargingAvailability ID
 1. Replace the <KEY> and <chargingAvailabilityIDs>
-	https://htmlpreview.github.io/?https://github.com/twischer/EVCSStatusList/blob/master/index.htm?key=<KEY>&chargingAvailability=<chargingAvailabilityIDs>
+	https://raw.githack.com/twischer/EVCSStatusList/main/index.htm?key=[KEY]&chargingAvailability=<chargingAvailabilityIDs>
 	1. Open the URL
 
 
 To give it a try only replace <KEY> in
-https://htmlpreview.github.io/?https://github.com/twischer/EVCSStatusList/blob/master/index.htm?chargingAvailability=276009024222219&key=<KEY>
+https://raw.githack.com/twischer/EVCSStatusList/main/index.htm?key=[KEY]&chargingAvailability=276009024222219
 
 The docuementation of the used API can be found in https://developer.tomtom.com/content/search-api-explorer
 
