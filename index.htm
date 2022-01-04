@@ -13,22 +13,26 @@ body {
 <script>
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
-	const key = urlParams.get('key')
-	//const chargingAvailabilityIDs = urlParams.get('chargingAvailability').split(",")
-	const requestNearBy = "https://api.tomtom.com/search/2/nearbySearch/.json?key=" + key + "&minPowerKW=1&lat=52.347094948746346&lon=9.817606746711128&radius=1000"
+	const key = urlParams.getAll('key')
+	const latlons = urlParams.getAll('latlon')
+	const requestNearBy = "https://api.tomtom.com/search/2/nearbySearch/.json?key=" + key + "&minPowerKW=1&radius=1000"
 	const requestAvail = "https://api.tomtom.com/search/2/chargingAvailability.json?key=" + key + "&chargingAvailability="
 
 	$( document ).ready(function() {
 		const today = new Date();
 		const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 		$("div").append("Last update from " + time);
-		$.getJSON(requestNearBy, function(stations) {
-			$.each(stations.results, function( index, station ) {
-				const street = station.address.freeformAddress;
-				const id = station.dataSources.chargingAvailability.id;
-				$.getJSON(requestAvail+id, function(result) {
-					var connector = result.connectors[0];
-					$("div").append("<tr><td>"+street+"</td><td><font size=5><b>" + connector.availability.current.available+"/"+connector.total + "</td><tr>");
+		$.each(latlons, function(index, latlonString) {
+			const latlon = latlonString.split(",")
+			const request = requestNearBy + "&lat=" + latlon[0] + "&lon=" + latlon[1];
+			$.getJSON(request, function(stations) {
+				$.each(stations.results, function( index, station ) {
+					const street = station.address.freeformAddress;
+					const id = station.dataSources.chargingAvailability.id;
+					$.getJSON(requestAvail+id, function(result) {
+						var connector = result.connectors[0];
+						$("div").append("<tr><td>"+street+"</td><td><font size=5><b>" + connector.availability.current.available+"/"+connector.total + "</td><tr>");
+					});
 				});
 			});
 		});
