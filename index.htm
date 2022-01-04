@@ -3,6 +3,12 @@
 <head>
 <meta http-equiv="refresh" content="60">
 <title>Electric Vehicle Charging Station Status List</title>
+<style>
+body {
+	background-color: black;
+	color: white;
+}
+</style>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script>
 	const queryString = window.location.search;
@@ -13,10 +19,6 @@
 	const requestAvail = "https://api.tomtom.com/search/2/chargingAvailability.json?key=" + key + "&chargingAvailability="
 
 	$( document ).ready(function() {
-		// TODO debugging
-		$("div").append("<tr><td>1 '" + queryString + "'");
-		$("div").append("<tr><td>2 '" + urlParams + "'");
-		$("div").append("<tr><td>3 '" + key + "'");
 		const today = new Date();
 		const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 		$("div").append("Last update from " + time);
